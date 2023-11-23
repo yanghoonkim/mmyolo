@@ -12,6 +12,7 @@ from mmengine.runner import Runner
 from mmyolo.registry import RUNNERS
 from mmyolo.utils import is_metainfo_lower
 
+from nia.utils import *
 
 # TODO: support fuse_conv_bn
 def parse_args():
@@ -75,6 +76,7 @@ def parse_args():
 
 
 def main():
+    split_data()
     args = parse_args()
 
     # Reduce the number of repeated compilations and improve

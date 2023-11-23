@@ -49,9 +49,9 @@ val_num_workers = 10
 # Base learning rate for optim_wrapper. Corresponding to 8xb16=64 bs
 base_lr = 1e-5
 weight_decay = 0.05
-max_epochs = 12  # Maximum training epochs
+max_epochs = 5  # Maximum training epochs
 # Save model checkpoint and validation intervals
-save_checkpoint_intervals = 3
+save_checkpoint_intervals = 1 
 
 
 
