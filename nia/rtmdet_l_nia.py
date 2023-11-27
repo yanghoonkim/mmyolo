@@ -10,6 +10,9 @@ train_data_prefix = '원천데이터/'  # Prefix of train image path
 # Path of val annotation file
 val_ann_file = 'thermal_valid_label.json'
 val_data_prefix = '원천데이터'  # Prefix of val image path
+# Path of test annotation file
+test_ann_file = 'thermal_test_label.json'
+test_data_prefix = '원천데이터'  # Prefix of val image path
 
 class_name = ('car-b', 'Two-wheel Vehicle-b', 'TruckBus-b', 'Pedestrian-b',)
 num_classes = 4
@@ -177,7 +180,23 @@ val_dataloader = dict(
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline))
 
-test_dataloader = val_dataloader
+
+test_dataloader = dict(
+    batch_size=val_batch_size_per_gpu,
+    num_workers=val_num_workers,
+    persistent_workers=persistent_workers,
+    pin_memory=True,
+    drop_last=False,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
+        type=dataset_type,
+        metainfo=metainfo,
+        data_root=data_root,
+        ann_file=test_ann_file,
+        data_prefix=dict(img=test_data_prefix),
+        test_mode=True,
+        batch_shapes_cfg=batch_shapes_cfg,
+        pipeline=test_pipeline))
 
 
 # Reduce evaluation time
@@ -186,7 +205,12 @@ val_evaluator = dict(
     proposal_nums=(100, 1, 10),
     ann_file=data_root + val_ann_file,
     metric='bbox')
-test_evaluator = val_evaluator
+
+test_evaluator = dict(
+    type='mmdet.CocoMetric',
+    proposal_nums=(100, 1, 10),
+    ann_file=data_root + test_ann_file,
+    metric='bbox')
 
 # optimizer
 optim_wrapper = dict(
