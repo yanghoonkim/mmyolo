@@ -26,6 +26,8 @@ RUN git clone https://github.com/yanghoonkim/mmyolo.git
 
 WORKDIR /root/mmyolo
 
+RUN git checkout nia
+
 RUN pip install -r requirements/albu.txt
 
 RUN mim install -v -e .
