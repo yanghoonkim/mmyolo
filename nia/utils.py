@@ -1,9 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import json
-
     
-
 from nia.nia_dataset_reader import (
     NiaDataPathExtractor,
     DataFrameSplitter,
@@ -18,7 +16,7 @@ VALID_LABEL_PATH = BASE_PATH / 'thermal_valid_label.json'
 TEST_LABEL_PATH = BASE_PATH / 'thermal_test_label.json'
 
 
-# raw data에 오류가 있기 때문에 사전에 정의해줌
+# categoires 사전 정의
 categories = [
  {'id': 3,
   'name': 'car-b',
@@ -41,7 +39,6 @@ categories = [
 def is_thermal_data(item):
     cond = item.match('thermal/*.png*')
     return cond
-
 
 def to_frame(pairs):
     df = pd.DataFrame(pairs, columns=['imgpath', 'annopath'])
@@ -88,7 +85,6 @@ def split_data():
             channels=["thermal"],
         )        
 
-
         train_path_pairs = path_provider.get_split_data_list("train")
         valid_path_pairs = path_provider.get_split_data_list('valid')
         test_path_pairs = path_provider.get_split_data_list('test')
@@ -101,9 +97,7 @@ def split_data():
         valid_dict = make_dict(df_thermal_valid)
         test_dict = make_dict(df_thermal_test)
 
-
         # annotation id 중복 이슈 해결
-        temp = set()
         anno_id = 0
         for idx, item in enumerate(train_dict['annotations']):
             train_dict['annotations'][idx]['id'] = anno_id
