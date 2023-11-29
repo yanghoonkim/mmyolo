@@ -1,21 +1,14 @@
+# definition of _base_ should be in the first line of this file
 _base_ = '/root/mmyolo/configs/rtmdet/rtmdet_l_syncbn_fast_8xb32-300e_coco.py'
+
+from nia.utils import data_root, img_prefix, train_ann_file, val_ann_file, test_ann_file, categories
 
 dataset_type = 'YOLOv5CocoDataset'
 
-# -----data related-----
-data_root = '/root/mmyolo/data/nia/'
-# Path of train annotation file
-train_ann_file = 'thermal_train_label.json'
-train_data_prefix = '1.원천데이터/'  # Prefix of train image path
-# Path of val annotation file
-val_ann_file = 'thermal_valid_label.json'
-val_data_prefix = '1.원천데이터'  # Prefix of val image path
-# Path of test annotation file
-test_ann_file = 'thermal_test_label.json'
-test_data_prefix = '1.원천데이터'  # Prefix of val image path
+class_name = tuple([item['name'] for item in categories])
 
 class_name = ('car-b', 'Two-wheel Vehicle-b', 'TruckBus-b', 'Pedestrian-b',)
-num_classes = 4
+num_classes = len(class_name)
 metainfo = dict(classes=class_name, palette=[(20, 220, 60), (119, 11, 32), (0, 0, 142), (0, 0, 230)])
 
 
@@ -141,7 +134,7 @@ train_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=train_ann_file,
-        data_prefix=dict(img=train_data_prefix),
+        data_prefix=dict(img=img_prefix),
         filter_cfg=dict(filter_empty_gt=True, min_size=32),
         pipeline=train_pipeline))
 
@@ -175,7 +168,7 @@ val_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=val_ann_file,
-        data_prefix=dict(img=val_data_prefix),
+        data_prefix=dict(img=img_prefix),
         test_mode=True,
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline))
@@ -193,7 +186,7 @@ test_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=test_ann_file,
-        data_prefix=dict(img=test_data_prefix),
+        data_prefix=dict(img=img_prefix),
         test_mode=True,
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline))
