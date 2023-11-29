@@ -6,13 +6,13 @@ dataset_type = 'YOLOv5CocoDataset'
 data_root = '/root/mmyolo/data/nia/'
 # Path of train annotation file
 train_ann_file = 'thermal_train_label.json'
-train_data_prefix = '원천데이터/'  # Prefix of train image path
+train_data_prefix = '1.원천데이터/'  # Prefix of train image path
 # Path of val annotation file
 val_ann_file = 'thermal_valid_label.json'
-val_data_prefix = '원천데이터'  # Prefix of val image path
+val_data_prefix = '1.원천데이터'  # Prefix of val image path
 # Path of test annotation file
 test_ann_file = 'thermal_test_label.json'
-test_data_prefix = '원천데이터'  # Prefix of val image path
+test_data_prefix = '1.원천데이터'  # Prefix of val image path
 
 class_name = ('car-b', 'Two-wheel Vehicle-b', 'TruckBus-b', 'Pedestrian-b',)
 num_classes = 4
