@@ -79,19 +79,13 @@ def split_data():
         print('[DATA SPLIT] Splitting data...')
 
         path_provider = NiaDataPathProvider(
-            reader=NiaDataPathExtractor(dataset_dir="/root/mmyolo/data/nia/"),
-            splitter=DataFrameSplitter(
-                groups=["channel", "collector", "sensor", "code_1", "code_2", "timeslot", "weather"],
-                splits=["train", "valid", "test"],
-                ratios=[8, 1, 1],
-                seed=231111,
-            ),
-            channels=["thermal"],
+            reader=NiaDataPathExtractor(dataset_dir=data_root),
+            splitter=DataFrameSplitter(),
         )        
 
-        train_path_pairs = path_provider.get_split_data_list("train")
-        valid_path_pairs = path_provider.get_split_data_list('valid')
-        test_path_pairs = path_provider.get_split_data_list('test')
+        train_path_pairs = path_provider.get_split_data_list(channels="thermal", splits="train")
+        valid_path_pairs = path_provider.get_split_data_list(channels="thermal", splits='valid')
+        test_path_pairs = path_provider.get_split_data_list(channels="thermal", splits='test')
 
         df_thermal_train = to_frame(train_path_pairs)
         df_thermal_valid = to_frame(valid_path_pairs)
