@@ -48,6 +48,8 @@ weight_decay = 0.05
 max_epochs = 5  # Maximum training epochs
 # Save model checkpoint and validation intervals
 save_checkpoint_intervals = 1 
+# The maximum checkpoints to keep.
+max_keep_ckpts = 3
 
 
 
@@ -220,6 +222,15 @@ train_cfg = dict(
 
 val_cfg = dict(type='ValLoop')
 test_cfg = dict(type='TestLoop')
+
+
+# hooks
+default_hooks = dict(
+    checkpoint=dict(
+        type='CheckpointHook',
+        interval=save_checkpoint_intervals,
+        max_keep_ckpts=max_keep_ckpts  # only keep latest 3 checkpoints
+    ))
 
 visualizer = dict(vis_backends=[dict(type='LocalVisBackend'),dict(type='TensorboardVisBackend')])
 
