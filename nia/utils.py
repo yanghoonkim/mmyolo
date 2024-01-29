@@ -80,7 +80,6 @@ def split_data():
 
         path_provider = NiaDataPathProvider(
             reader=NiaDataPathExtractor(dataset_dir=data_root),
-            splitter=DataFrameSplitter(),
         )        
 
         train_path_pairs = path_provider.get_split_data_list(channels="thermal", splits="train")
