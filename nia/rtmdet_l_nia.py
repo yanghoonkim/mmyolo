@@ -1,7 +1,7 @@
 # definition of _base_ should be in the first line of this file
 _base_ = '/root/mmyolo/configs/rtmdet/rtmdet_l_syncbn_fast_8xb32-300e_coco.py'
 
-from nia.utils import data_root, img_prefix, train_ann_file, val_ann_file, test_ann_file, categories
+from nia.utils import data_root, train_ann_file, val_ann_file, test_ann_file, categories
 
 dataset_type = 'YOLOv5CocoDataset'
 
@@ -136,7 +136,6 @@ train_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=train_ann_file,
-        data_prefix=dict(img=img_prefix),
         filter_cfg=dict(filter_empty_gt=True, min_size=32),
         pipeline=train_pipeline))
 
@@ -170,7 +169,6 @@ val_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=val_ann_file,
-        data_prefix=dict(img=img_prefix),
         test_mode=True,
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline))
@@ -188,7 +186,6 @@ test_dataloader = dict(
         metainfo=metainfo,
         data_root=data_root,
         ann_file=test_ann_file,
-        data_prefix=dict(img=img_prefix),
         test_mode=True,
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline))

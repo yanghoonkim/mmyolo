@@ -8,14 +8,12 @@ from nia.nia_dataset_reader import (
     NiaDataPathProvider,
 )
 
-img_prefix = '1.원천데이터'
 data_root = '/root/mmyolo/data/nia/'
 train_ann_file = 'thermal_train_label.json'
 val_ann_file = 'thermal_valid_label.json'
 test_ann_file = 'thermal_test_label.json'
 
 BASE_PATH = Path(data_root)
-IMG_PATH = BASE_PATH /  img_prefix
 TRAIN_LABEL_PATH = BASE_PATH / train_ann_file
 VALID_LABEL_PATH = BASE_PATH / val_ann_file
 TEST_LABEL_PATH = BASE_PATH / test_ann_file
@@ -67,7 +65,8 @@ def make_dict(df):
                 break
         if not issue_flag:
             anno_images.extend(item_json['images'])
-            anno_images[-1]['file_name'] = Path(filename).relative_to(IMG_PATH.as_posix()).as_posix()
+            #anno_images[-1]['file_name'] = Path(filename).relative_to(IMG_PATH.as_posix()).as_posix()
+            anno_images[-1]['file_name'] = Path(filename).as_posix() 
             anno_annotations.extend(item_json['annotations'])
     
     dict_ = {'categories': categories, 'images': anno_images, 'annotations': anno_annotations}
